@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ProductApp</string>
+    <string name="mobile_number">Enter mobile number</string>
+    <string name="password_hint">Enter password</string>
+    <string name="login_text"><u>Enter</u></string>
+    <string name="signup_text"><u>Sign Up</u></string>
+</resources>
+
