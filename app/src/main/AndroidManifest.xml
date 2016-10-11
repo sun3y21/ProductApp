@@ -21,7 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignUpPage" />
-        <activity android:name=".OTPActivity"></activity>
+        <activity android:name=".OTPActivity" />
+        <activity android:name=".MainWindow"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context="com.example.sunnny.productapp.Main_window_fragment">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="The products will be displayed here."
+        android:textSize="32sp"
+        android:textStyle="italic"
+        android:fontFamily="serif-monospace"
+        />
+
+
+
+</LinearLayout>

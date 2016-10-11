@@ -123,6 +123,7 @@ public class SignUpPage extends AppCompatActivity {
                        Intent i=new Intent(getApplicationContext(),OTPActivity.class);
                        i.putExtra("MOBILE",mobile);
                        startActivity(i);
+                       finish();
                    }
                    else
                    {

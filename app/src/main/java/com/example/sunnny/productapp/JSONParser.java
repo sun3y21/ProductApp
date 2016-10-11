@@ -40,7 +40,7 @@ public class JSONParser {
             writer.write(query);
             writer.flush();
             //set timeout time
-            urlConnection.setConnectTimeout(20000);
+            urlConnection.setConnectTimeout(10000);
             //now connect
             urlConnection.connect();
 
