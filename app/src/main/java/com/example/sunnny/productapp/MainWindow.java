@@ -11,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import static com.example.sunnny.productapp.MainActivity.LOGGED_IN;
 
 public class MainWindow extends AppCompatActivity {
@@ -20,10 +22,15 @@ public class MainWindow extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_window);
 
+        Intent intent=getIntent();
+        ArrayList<Product> arr=intent.getParcelableArrayListExtra("result");
         if(savedInstanceState==null)
         {
             Fragment f=(Fragment)new Main_window_fragment();
             FragmentManager fm=getSupportFragmentManager();
+            Bundle bundle=new Bundle();
+            bundle.putParcelableArrayList("result",arr);
+            f.setArguments(bundle);
             fm.beginTransaction().add(R.id.activity_main_window,f).commit();
         }
 

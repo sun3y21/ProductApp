@@ -61,7 +61,7 @@ public class JSONParser {
                 }
 
                 jsonObject=new JSONObject(strBuffer.toString());
-                Log.v("ProductApp",strBuffer.toString());
+               // Log.v("ProductApp",strBuffer.toString());
             }
 
         }catch (Exception exp)

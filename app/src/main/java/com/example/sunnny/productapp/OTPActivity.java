@@ -39,7 +39,10 @@ public class OTPActivity extends AppCompatActivity {
     {
         TASK=1;
         progress.setMessage("Resending...");
-        String Url="http://10.0.2.2/ProductApp/Send.php";
+        //for local host
+        //String Url="http://10.0.2.2/ProductApp/Send.php";
+        //for server
+        String Url="http://www.sun3y21.pe.hu/ProductApp/Send.php";
         new Connection().execute(Url);
     }
 
@@ -47,7 +50,10 @@ public class OTPActivity extends AppCompatActivity {
     {
         TASK=0;
         progress.setMessage("Verifying...");
-        String Url="http://10.0.2.2/ProductApp/Verification.php";
+        //for local host
+        //String Url="http://10.0.2.2/ProductApp/Verification.php";
+        //for remote server
+        String Url="http://www.sun3y21.pe.hu/ProductApp/Verification.php";
         EditText otpText=(EditText)findViewById(R.id.otptext);
         String otp=otpText.getText().toString();
         builder.appendQueryParameter("oneTimePassword",otp);

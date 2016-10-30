@@ -77,7 +77,10 @@ public class SignUpPage extends AppCompatActivity {
 
         if(flag)
         {
-            String url="http://10.0.2.2/ProductApp/SignUp.php";
+            //for local host
+            //String url="http://10.0.2.2/ProductApp/SignUp.php";
+            //for remote server
+            String url="http://www.sun3y21.pe.hu/ProductApp/SignUp.php";
             builder=new Uri.Builder().appendQueryParameter("name",name);
             builder.appendQueryParameter("password",password);
             builder.appendQueryParameter("gender",gender);

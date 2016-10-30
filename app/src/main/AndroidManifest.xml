@@ -22,7 +22,12 @@
         </activity>
         <activity android:name=".SignUpPage" />
         <activity android:name=".OTPActivity" />
-        <activity android:name=".MainWindow"></activity>
+        <activity android:name=".MainWindow"/>
+
+        <activity
+            android:name=".Description"
+            android:label="@string/title_activity_description"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
