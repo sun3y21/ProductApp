@@ -48,6 +48,7 @@ public class Main_window_fragment extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 //here we do the seraching work
                 Log.v("ProductApp: ","Submit + "+query);
+                Toast.makeText(getContext(),"You tried to search : "+query,Toast.LENGTH_LONG).show();
                 return false;
             }
 
@@ -73,11 +74,13 @@ public class Main_window_fragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent=new Intent(getContext(),Description.class);
+                intent.putExtra("product",products.get(i));
                 startActivity(intent);
             }
         });
 
 
+        g.setFadingEdgeLength(0);
 
         g.setOnScrollListener(new AbsListView.OnScrollListener() {
             boolean isScrolled=false;
@@ -90,7 +93,7 @@ public class Main_window_fragment extends Fragment {
             @Override
             public void onScroll(AbsListView absListView, int i, int i1, int i2) {
 
-                if(i+i1>=i2&&!isEnd()&&isScrolled)
+                if(i>8&&i+i1>=i2&&!isEnd()&&isScrolled)
                 {
                     setEnd(true);
                     Snackbar s=Snackbar.make(view,"Load more...",Snackbar.LENGTH_LONG);

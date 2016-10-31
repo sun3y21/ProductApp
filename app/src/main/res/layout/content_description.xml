@@ -1,22 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_description"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.sunnny.productapp.Description"
-    tools:showIn="@layout/activity_description">
+    tools:showIn="@layout/activity_description"
+    >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    android:orientation="vertical"
+   >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="200dp">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:id="@+id/desciption_image"
+            />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:padding="6dp"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_margin="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:id="@+id/des_name"
+            android:text="Name"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary"/>
+
+        <TextView
+            android:padding="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:textSize="16sp"
+            android:text="Rs: 15"
+            android:id="@+id/des_price"
+            />
+
+        <TextView
+            android:padding="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:textSize="16sp"
+            android:text="Rating: 5"
+            android:id="@+id/des_rating"
+            />
+
+        <TextView
+            android:paddingRight="3dp"
+            android:paddingLeft="3dp"
+            android:textSize="12sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Estimated Delivery Time: "/>
+
+        <TextView
+            android:paddingLeft="3dp"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dTime"
+            android:text="240 min"/>
+
+
+    </LinearLayout>
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Product description and buy now options."/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:text="Description"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_margin="3dp"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Product Description"
+        android:id="@+id/des_description"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="Buy Now"
+        android:textColor="#ffffff"
+        android:onClick="buyNow"
+        android:background="@color/colorPrimaryDark"
+        android:layout_height="40dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:text="Reviews"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_margin="3dp"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary"/>
+
+     <TextView
+         android:layout_width="match_parent"
+         android:id="@+id/review_list"
+         android:text="No review available"
+         android:layout_height="wrap_content">
+     </TextView>
 
 </LinearLayout>
+</ScrollView>

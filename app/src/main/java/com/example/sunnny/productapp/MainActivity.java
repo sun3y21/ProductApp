@@ -137,9 +137,8 @@ public class MainActivity extends AppCompatActivity {
                         editor.putString(MOBILE,number);
                         editor.putString(NAME,json.getString("name"));
                         editor.commit();
-
                         skip(null);
-                        finish();
+
                     }
                     else if(json.getString("status").equalsIgnoreCase("success")&&json.getString("msg").equalsIgnoreCase("result"))
                     {
