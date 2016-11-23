@@ -18,6 +18,8 @@ public class OTPActivity extends AppCompatActivity {
     ProgressDialog progress=null;
     int TASK=0; //if task = 0 it means verification
     Uri.Builder builder=null;
+    String parent="";
+    String mobile="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +27,12 @@ public class OTPActivity extends AppCompatActivity {
         setContentView(R.layout.activity_otp);
         progress=new ProgressDialog(OTPActivity.this);
         Intent i=getIntent();
-        String mobile="";
+
         if(i!=null)
         {
             mobile=i.getStringExtra("MOBILE");
+            parent=i.getStringExtra("PARENT");
+
         }
         //this parameters are based upon the url of send.php which require mobilNumber and countryCode as two parameter
         builder=new Uri.Builder().appendQueryParameter("mobileNumber",mobile);
@@ -40,9 +44,9 @@ public class OTPActivity extends AppCompatActivity {
         TASK=1;
         progress.setMessage("Resending...");
         //for local host
-        //String Url="http://10.0.2.2/ProductApp/Send.php";
+       // String Url="http://10.0.2.2/ProductApp/send.php";
         //for server
-        String Url="http://www.sun3y21.pe.hu/ProductApp/Send.php";
+        String Url="http://www.sun3y21.pe.hu/ProductApp/send.php";
         new Connection().execute(Url);
     }
 
@@ -66,6 +70,7 @@ public class OTPActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progress.setTitle("Connecting...");
             progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progress.show();
         }
@@ -90,11 +95,19 @@ public class OTPActivity extends AppCompatActivity {
                 {
                     try
                     {
-                        if(json.getString("status").equalsIgnoreCase("success"))
+                        if(json.getString("status").equalsIgnoreCase("success")&&parent.equalsIgnoreCase("SignUpPage"))
                         {
                             //user signed up successfuly now we can send him to home page ( for now it is login page)
                             Toast.makeText(getApplicationContext(),"User Verified Successfully.",Toast.LENGTH_LONG).show();
                             Intent i=new Intent(getApplicationContext(),MainActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
+                        else if(json.getString("status").equalsIgnoreCase("success")&&parent.equalsIgnoreCase("ForgotPassword"))
+                        {
+                            //user verified otp for forget password send him to change password activity
+                            Intent i=new Intent(getApplicationContext(),ChangePassword.class);
+                            i.putExtra("MOBILE",mobile);
                             startActivity(i);
                             finish();
                         }

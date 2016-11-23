@@ -21,7 +21,7 @@ public class MainWindow extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_window);
-
+        setTitle("Products");
         Intent intent=getIntent();
         ArrayList<Product> arr=intent.getParcelableArrayListExtra("result");
         if(savedInstanceState==null)
@@ -58,11 +58,14 @@ public class MainWindow extends AppCompatActivity {
                     finish();
                     Toast.makeText(getApplicationContext(),"Logged out successfully",Toast.LENGTH_LONG).show();
                 }
-                else
-                {
-                    Toast.makeText(getApplicationContext(),"Logout unsuccessfull!!!",Toast.LENGTH_LONG).show();
+                else {
+                    Toast.makeText(getApplicationContext(), "Logout unsuccessfull!!!", Toast.LENGTH_LONG).show();
                 }
-
+                break;
+            case R.id.viewProfile:
+                Intent i=new Intent(getApplicationContext(),UserProfile.class);
+                startActivity(i);
+                break;
         }
         return true;
     }

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="6dp"
+    android:id="@+id/content_user_profile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.sunnny.productapp.UserProfile"
+    tools:showIn="@layout/activity_user_profile">
+
+   <LinearLayout
+       android:layout_margin="6dp"
+       android:layout_width="match_parent"
+       android:layout_height="40dp"
+       android:orientation="horizontal">
+
+       <TextView
+           android:layout_width="0dp"
+           android:layout_weight="1"
+           android:layout_height="40dp"
+           android:gravity="center|left"
+           android:textSize="22sp"
+           android:text="Name"/>
+
+       <TextView
+           android:layout_width="0dp"
+           android:layout_weight="1"
+           android:layout_height="40dp"
+           android:gravity="center|left"
+           android:id="@+id/user_name"
+           android:textSize="22sp"
+           android:text="Name"/>
+   </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:gravity="center|left"
+            android:textSize="22sp"
+            android:text="Mobile"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:gravity="center|left"
+            android:id="@+id/user_number"
+            android:textSize="22sp"
+            android:text="number"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="3dp"
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:layout_height="1dp">
+    </LinearLayout>
+
+    <TextView
+        android:layout_margin="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Previous orders"/>
+
+    <LinearLayout
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:layout_height="1dp">
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:id="@+id/orderList"
+        android:visibility="gone"
+        android:layout_height="wrap_content">
+    </ListView>
+
+   <TextView
+       android:layout_margin="6dp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:gravity="center"
+       android:text="No Data Available."/>
+</LinearLayout>
+

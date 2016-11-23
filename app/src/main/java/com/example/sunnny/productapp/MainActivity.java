@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -32,19 +31,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //check if already login move to main Window
-        SharedPreferences sharedPref =getSharedPreferences("ProductApp",Context.MODE_PRIVATE);
-        boolean loggedIn=sharedPref.getBoolean(LOGGED_IN,false);
-        Log.v("ProductApp:","Logged in: "+loggedIn);
-
-
-        if(loggedIn)
-        {
-            String name=sharedPref.getString(NAME,"unknown");
-            Toast.makeText(getApplicationContext(),name+" already logged in",Toast.LENGTH_LONG).show();
-            skip(null);
-        }
     }
 
     public void signUp(View view)
@@ -75,15 +61,22 @@ public class MainActivity extends AppCompatActivity {
             EditText passText=(EditText)findViewById(R.id.passwordText);
             number=numText.getText().toString();
             String password=passText.getText().toString();
+            if(number.length()!=10)
+            {
+                Toast.makeText(getApplicationContext(),"Invalid mobile number.",Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                builder=new Uri.Builder();
+                builder.appendQueryParameter("mobile",number);
+                builder.appendQueryParameter("password",password);
+                //for localhost
+                //String url="http://10.0.2.2/ProductApp/login.php";
+                //for remote server
+                String url="http://www.sun3y21.pe.hu/ProductApp/Login.php";
+                new Connection().execute(url);
+            }
 
-            builder=new Uri.Builder();
-            builder.appendQueryParameter("mobile",number);
-            builder.appendQueryParameter("password",password);
-            //for localhost
-            //String url="http://10.0.2.2/ProductApp/login.php";
-            //for remote server
-            String url="http://www.sun3y21.pe.hu/ProductApp/Login.php";
-            new Connection().execute(url);
         }
     }
 
@@ -91,14 +84,15 @@ public class MainActivity extends AppCompatActivity {
     {
            builder=new Uri.Builder();
            builder.appendQueryParameter("limit","30");
-          // String url="http://10.0.2.2/ProductApp/getProducts.php";
+           //String url="http://10.0.2.2/ProductApp/getProducts.php";
            String url="http://www.sun3y21.pe.hu/ProductApp/getProducts.php";
            new Connection().execute(url);
     }
 
     public void forgotPass(View view)
     {
-         Toast.makeText(getApplicationContext(),"Option Unavailable",Toast.LENGTH_LONG).show();
+         Intent i=new Intent(getApplicationContext(),ForgotPassword.class);
+         startActivity(i);
     }
 
 
@@ -138,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
                         editor.putString(NAME,json.getString("name"));
                         editor.commit();
                         skip(null);
-
                     }
                     else if(json.getString("status").equalsIgnoreCase("success")&&json.getString("msg").equalsIgnoreCase("result"))
                     {

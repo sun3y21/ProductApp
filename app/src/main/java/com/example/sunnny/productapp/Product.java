@@ -23,7 +23,7 @@ public class Product implements Parcelable {
 
     public Product()
     {
-       // this.imageUrl="http://10.0.2.2/";
+        //this.imageUrl="http://10.0.2.2/";
         this.imageUrl="http://www.sun3y21.pe.hu/";
     }
 

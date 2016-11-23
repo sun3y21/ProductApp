@@ -78,7 +78,7 @@ public class SignUpPage extends AppCompatActivity {
         if(flag)
         {
             //for local host
-            //String url="http://10.0.2.2/ProductApp/SignUp.php";
+           // String url="http://10.0.2.2/ProductApp/SignUp.php";
             //for remote server
             String url="http://www.sun3y21.pe.hu/ProductApp/SignUp.php";
             builder=new Uri.Builder().appendQueryParameter("name",name);
@@ -125,6 +125,7 @@ public class SignUpPage extends AppCompatActivity {
                    {
                        Intent i=new Intent(getApplicationContext(),OTPActivity.class);
                        i.putExtra("MOBILE",mobile);
+                       i.putExtra("PARENT","SignUpPage");
                        startActivity(i);
                        finish();
                    }

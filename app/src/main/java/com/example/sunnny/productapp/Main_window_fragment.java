@@ -1,12 +1,14 @@
 package com.example.sunnny.productapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,9 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -26,10 +31,11 @@ public class Main_window_fragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
 
+    Uri.Builder builder=null;
     ArrayList<Product> products;
     private boolean end=false;
     SearchView searchView=null;
-
+    CustomAdapter c=null;
     public Main_window_fragment()
     {
 
@@ -43,12 +49,18 @@ public class Main_window_fragment extends Fragment {
         final View view= inflater.inflate(R.layout.fragment_main_window_fragment, container, false);
         //search
         searchView=(SearchView)view.findViewById(R.id.search_item);
+        builder=new Uri.Builder();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //here we do the seraching work
-                Log.v("ProductApp: ","Submit + "+query);
-                Toast.makeText(getContext(),"You tried to search : "+query,Toast.LENGTH_LONG).show();
+               // String url="http://10.0.2.2/ProductApp/Search.php";
+                String url="http://www.sun3y21.pe.hu/ProductApp/Search.php";
+                builder=new Uri.Builder();
+                builder.appendQueryParameter("keyword",query);
+                searchView.setFocusable(false);
+                new Connection().execute(url);
+
                 return false;
             }
 
@@ -59,6 +71,7 @@ public class Main_window_fragment extends Fragment {
         });
 
         Bundle bundle=getArguments();
+        if(products==null)
         products=bundle.getParcelableArrayList("result");
 
         if(products==null)
@@ -67,7 +80,7 @@ public class Main_window_fragment extends Fragment {
             products.add(new Product());
         }
         final GridView g=(GridView)view.findViewById(R.id.productGrid);
-        CustomAdapter c=new CustomAdapter(getContext(),R.id.placeHolder,products);
+        c=new CustomAdapter(getContext(),R.id.placeHolder,products);
         g.setAdapter(c);
 
         g.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -123,8 +136,6 @@ public class Main_window_fragment extends Fragment {
 
         });
 
-
-
         return view;
     }
 
@@ -137,5 +148,76 @@ public class Main_window_fragment extends Fragment {
     {
         this.end=end;
     }
+
+    class Connection extends AsyncTask<String,String,JSONObject>
+    {
+        ProgressDialog progress;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progress = new ProgressDialog(getContext());
+            progress.setMessage("Searching...");
+            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progress.show();
+        }
+
+
+
+        @Override
+        protected JSONObject doInBackground(String... strings) {
+            JSONObject json=JSONParser.makeHttpRequest(strings[0],builder);
+            return json;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject json)
+        {
+            super.onPostExecute(json);
+            if(progress.isShowing())
+                progress.dismiss();
+            if(json!=null)
+            {
+                try
+                {
+                    if(json.has("statusE"))
+                    {
+                        Toast.makeText(getContext(),"Invalid Search.",Toast.LENGTH_LONG).show();
+                    }
+                    if (json.getString("status").equalsIgnoreCase("success") && json.getString("msg").equalsIgnoreCase("result")) {
+                        JSONArray jsonArray = json.getJSONArray("result");
+                        ArrayList<Product> arr = new ArrayList<>();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                            Product p = new Product();
+                            p.setDescription(jsonObject.getString("description"));
+                            p.setId(jsonObject.getString("id"));
+                            p.setImageUrl(jsonObject.getString("url"));
+                            p.setLatitude(jsonObject.getDouble("latitude"));
+                            p.setLongitude(jsonObject.getDouble("longitude"));
+                            p.setName(jsonObject.getString("name"));
+                            p.setPrice(jsonObject.getDouble("price"));
+                            p.setRating(jsonObject.getDouble("rating"));
+                            p.setQuantity(jsonObject.getInt("quantity"));
+                            arr.add(p);
+                        }
+
+                        c.clear();
+                        c.addAll(arr);
+
+                    }
+
+                }
+                catch (Exception exp)
+                {
+                    Toast.makeText(getContext(),"Bad response from server",Toast.LENGTH_LONG).show();
+                }
+            }
+            else
+            {
+                Toast.makeText(getContext(),"Can't connect to server",Toast.LENGTH_LONG).show();
+            }
+        }
+}
+
 
 }
